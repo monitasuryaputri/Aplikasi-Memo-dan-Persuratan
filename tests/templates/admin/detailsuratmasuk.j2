@@ -1,0 +1,333 @@
+{% include "layout/admin/head.j2" %}
+{% include "layout/admin/header.j2" %}
+{% include "layout/admin/aside.j2" %}
+<style type="text/css">
+    .noBorder {
+        border: none !important;
+    }
+    textarea.form-control.komentar-class
+    {  
+    width: 100%;
+    height: 100%;
+    border-color: Transparent;     
+    }
+</style>
+<!-- ============================================================== -->
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<div class="page-wrapper">
+    {% for satu_suratmasuk in data_suratmasuk %}
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor"><i class="ti-email"></i> {{ title }}</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboardadmin') }}"> {{ breadcrumb }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('admin.suratmasuk') }}"> {{ breadcrumb_nonactive }}</a>
+                </li>
+                <li class="breadcrumb-item active"><a
+                        href="/admin/detailsuratmasuk/{{ satu_suratmasuk["id"] }}">{{ breadcrumb_active }}</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Surat : {{ satu_suratmasuk["nomor_surat"] }}</h4>
+                        <div>
+                            <hr class="m-t-0">
+                        </div>
+                        <table class="table full-primary-table">
+                            <tbody>
+                                <tr>
+                                    <td class="noBorder" width="20%">Nomor Surat</td>
+                                    <td class="noBorder" width="45%"><a id="inline-username" data-type="text"
+                                            data-pk="1">{{ satu_suratmasuk["nomor_surat"] }}</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Tanggal Surat</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1"
+                                            data-placement="right">{{ satu_suratmasuk["tgl_surat"] }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Asal Surat</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1" data-placement="right"
+                                            data-placeholder="Required"
+                                            data-title="Enter your firstname">{{ satu_suratmasuk["asal_surat"] }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Hal</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1" data-placement="right"
+                                            data-placeholder="Required"
+                                            data-title="Enter your firstname">{{ satu_suratmasuk["hal"] }}</a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="noBorder">Isi Ringkas</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1"
+                                            data-placement="right">{{ satu_suratmasuk["isi_ringkas"] }}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            {% for data in satu_suratmasuk["dokumen"] %}
+                            <div class="col-md-2">
+                                {% if ( (".jpg" in data["url"]) or (".png" in data["url"]) ) %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{data["url"]}}"> </a>
+
+                                {% elif ( (".xlsx" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/excel.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% elif ( (".ppt" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/ppt.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% elif ( (".docx" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/word.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% elif ( (".pdf" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/pdf.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% elif ( (".txt" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/txt.png') }}"> {{ data["name"] }} 
+                                </a>
+
+                                {% elif ( (".json" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/json.png') }}"> {{ data["name"] }} 
+                                </a>
+
+                                {% else %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/unk.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-xlg-2 col-xs-12">
+                        <div class="ribbon-wrapper card">
+                            <div class="ribbon ribbon-success">Disposisi</div>
+                            <p class="ribbon-content">
+                                {% for x in satu_suratmasuk["disposisi"] %}
+                                {% set disposisi = x|string %}
+                                {{ disposisi.title() }}
+                                {% if not loop.last %}
+                                <br>
+                                {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <h4 class="card-title">Tambah Komentar</h4>
+
+                            <form novalidate action="{{ url_for('komenmasuk.komenmasuk_tambah') }}" method="POST"
+                                enctype="multipart/form-data">
+                                <textarea rows="5" id="komentar" type="text" name="isi_komenmasuk" class="form-control"
+                                    placeholder=""></textarea>
+                                <input id="id_suratmasuk" type="text" name="id_suratmasuk" class="form-control" hidden
+                                    value="{{satu_suratmasuk['id']}}">
+                                <button type="submit" class="btn pull-right btn-success green" style="margin: 5px;"
+                                    style="float: right;"><i class="fa fa-share"></i>Kirim</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <h4 class="card-title">Komentar</h4>
+                        <div>
+                            <hr class="m-t-0">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-xlg-12">
+                                {% set i = namespace(value=0) %}
+                                {% set id = "replyComment" %}
+                                {% for komentar in satu_suratmasuk["data_komentar"]|sort(attribute='tgl_komenmasuk', reverse = True) %}
+                                {% set concat = id ~ i.value|string %}
+                                <div class="card-body">
+
+                                    <div class="profiletimeline m-t-40">
+                                    <small>{{ komentar["penindak_komentar"]["nama_jabatan"].title() }}</small>
+                                        <div class="sl-item">
+                                            <div class="sl-left"> <img
+                                                    src="{{ komentar['penindak_komentar']['picture'] }}" alt="user"
+                                                    class="img-circle"> </div>
+                                            <div class="sl-right">
+                                                <div>
+                                                    <div class="float-sm-right">
+                                                        <small> {{ komentar["tgl_komenmasuk"] }} </small>
+                                                    </div>
+                                                    <a href="#" class="link">
+                                                        <h4>{{ komentar["penindak_komentar"]["nama"].title() }}
+                                                        </h4>
+                                                    </a>
+                                                    <textarea class="form-control komentar-class" 
+                                                                        readonly>{{ komentar["isi_komenmasuk"]}}</textarea>
+
+                                                    <!-- Reply -->
+                                                    <p>
+                                                        <a class="float-right btn btn-outline-primary ml-2"
+                                                            role="button" data-toggle="collapse" href="#{{ concat }}"
+                                                            aria-expanded="false" aria-controls="collapseExample"> <i
+                                                                class="fa fa-reply"></i>
+                                                            Balas</a>
+                                                        <br>
+                                                    </p>
+
+                                                    <div class="collapse" id={{ concat }}>
+                                                        <form id="replyform" novalidate
+                                                            action="{{ url_for('replymasuk.replymasuk_tambah') }}"
+                                                            method="POST" enctype="multipart/form-data">
+                                                            <textarea id="reply" type="text" name="isi_replymasuk"
+                                                                placeholder=""></textarea>
+                                                            <input id="suratmasuk" type="text" name="suratmasuk" hidden
+                                                                value="{{ komentar["suratmasuk"] }}">
+                                                            <input id="komenmasuk" type="text" name="komenmasuk" hidden
+                                                                value="{{ komentar["id"] }}">
+                                                            <button type="submit" class="btn btn-success green"><i
+                                                                    class="fa fa-share"></i>
+                                                                Kirim</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                {% for reply in satu_suratmasuk["data_reply"]|sort(attribute='tgl_replymasuk', reverse = True) %}
+                                                    {% set komen = reply["komenmasuk"]|int %}
+                                                    
+                                                    {% if komen == komentar["id"] %}
+                                                        
+                                                        <div class="card-inner">
+                                                        <small>{{ reply["penindak_komentar"]["nama_jabatan"].title() }}</small>
+                                                            <div class="sl-item">
+                                                                
+                                                                <div class="sl-left">
+                                                                    <img src="{{ reply['penindak_komentar']['picture'] }}"
+                                                                        alt="user" class="img-circle">
+                                                                </div>
+
+                                                                <div class="sl-right">
+                                                                    <div>
+                                                                        <div class="float-sm-right">
+                                                                            <small> {{ reply["tgl_replymasuk"] }} </small>
+                                                                        </div>
+                                                                        <a href="#" class="link">
+                                                                            <h4>{{ reply["penindak_komentar"]["nama"].title() }}
+                                                                            </h4>
+                                                                        </a>
+                                                                        <textarea class="form-control komentar-class" 
+                                                                        readonly>{{ reply["isi_replymasuk"]}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                </div>
+                                {% set i.value = i.value + 1 %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+
+    </div>
+    {% endfor %}
+
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+<script>
+            const txHeight = 16;
+            const tx = document.getElementsByClassName("form-control komentar-class");
+            for (let i = 0; i < tx.length; i++) {
+                if (tx[i].value == '') {
+                    tx[i].setAttribute("style", "height:" + txHeight + "px;overflow-y:hidden;" +
+                        "background: white;color: black;");
+                } else {
+                    tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;" +
+                        "background: white;color: black;");
+                }
+
+                tx[i].addEventListener("input", OnInput, false);
+            }
+
+            function OnInput(e) {
+                this.style.height = "auto";
+                this.style.height = (this.scrollHeight) + "px";
+            }
+
+            $("textarea").trigger("input");
+        </script>
+
+    {% include "layout/admin/footer.j2" %}

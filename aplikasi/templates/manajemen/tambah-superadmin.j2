@@ -1,0 +1,83 @@
+{% include "layout/manajemen/head.j2" %}
+{% include "layout/manajemen/header.j2" %}
+{% include "layout/manajemen/aside.j2" %}
+<div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor">{{ judul }}</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('manajemen.berandamanajemen') }}">Beranda</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ url_for('manajemen.manajemen_superadmin_tambah') }}">{{ isi_breadcrumb }}</a></li>
+
+                    </ol>
+                </div>
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->  
+           <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <span>{{ message }}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-xlg-12 col-lg-12 col-md-12">
+                                    <form action="{{ url_for('superadmin.superadmin_tambah') }}" method="post">
+
+                                    <div class="card-body">
+                                        <div class="col-lg-6  m-b-30">
+                                            <h4 class="card-title">Email :</h4>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="email" value="" required>
+                                            </div>
+                                            
+
+                                            
+                                        </div>
+                                        
+                                        <input type="submit" class="btn btn-info m-t-20 float-right" name="btnSimpan" value="Simpan">
+                                        <a class="btn btn-danger m-t-20" href="{{ url_for('manajemen.berandamanajemen') }}"><i class="fa fa-times"></i> Batal</a>
+                                    </div>
+                                       
+                                    
+                                    </form>
+
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Page Content -->
+                <!-- ============================================================== -->
+                
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+{% include "layout/manajemen/footer.j2" %}

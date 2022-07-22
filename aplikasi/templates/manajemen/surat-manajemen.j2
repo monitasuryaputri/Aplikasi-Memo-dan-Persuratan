@@ -1,0 +1,78 @@
+{% include "layout/manajemen/head.j2" %}
+{% include "layout/manajemen/header.j2" %}
+{% include "layout/manajemen/aside.j2" %}
+
+<div class="page-wrapper">
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor"> {{ judul }}</h3>
+        </div>
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <span>{{ message }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <a href="/manajemen/tambahsurat" type="button" class="btn btn-themecolor">Tambah Surat</a>
+                </div>
+                <h3 class="card-title">Surat Manajemen</h3>
+                <div>
+                    <hr class="m-t-0">
+                </div>
+                <div class="table-responsive m-t-40">
+                    <table id="myTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nomor</th>
+                                <th>Asal</th>
+                                <th>Tujuan</th>
+                                <th>Tanggal</th>
+                                <th>Detail</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for satu_surat in daftar_surat %}
+
+                            <tr>
+                                <td>{{ satu_surat["nomor"] }}</td>
+                                <td>{{ satu_surat["asal"] }}</td>
+                                <td>{{ satu_surat["tujuan"] }}</td>
+                                <td>{{ satu_surat["tgl"] }}</td>
+                                <td> 
+                                    <a href="/manajemen/detailsurat/{{ satu_surat["id"] }}"> <button type="button" class="btn waves-effect waves-light btn-themecolor">Detail</button></a> 
+                                </td>
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% include "layout/manajemen/footer.j2" %}

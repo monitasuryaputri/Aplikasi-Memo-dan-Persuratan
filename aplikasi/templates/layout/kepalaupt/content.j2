@@ -1,0 +1,66 @@
+{% include "layout/kepalaupt/head.j2" %}
+{% include "layout/kepalaupt/header.j2" %}
+{% include "layout/kepalaupt/aside.j2" %}
+
+
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                    <li role="separator" class="divider"></li>
+
+                        <li> <a href="/kepalaupt/dashboardka" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Dashboard </a>
+                        </li>
+
+                        <li> <a  href="/kepalaupt/suratmasukka" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Surat Masuk </span></a>
+                        </li>
+
+                        <li> <a  href="/kepalaupt/drafsuratka" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Draf Surat</span></a>
+                        </li>
+
+                        <li> <a  href="/kepalaupt/suratkeluarka" aria-expanded="false"><i class="mdi mdi-file-document-box"></i><span class="hide-menu">Surat Keluar</span></a>
+                        </li>
+
+                        <li> <a  href="/kepalaupt/tindaklanjut" aria-expanded="false"><i class="mdi mdi-clipboard-flow"></i><span class="hide-menu">Tindak Lanjut</span></a>
+                    </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor"><i class="ti-email"></i> {{ title }} </h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)"> {{ breadcrumb }} </a></li>
+                        <li class="breadcrumb-item active">{{ breadcrumb_active }} </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+        <main>
+            {% block main %}
+            {% endblock main %}
+        </main>
+{% include "layout/kepalaupt/footer.j2" %}

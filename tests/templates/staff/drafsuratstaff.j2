@@ -1,0 +1,110 @@
+{% include "layout/staff/head.j2" %}
+{% include "layout/staff/header.j2" %}
+{% include "layout/staff/aside.j2" %}
+<style>
+table {width: 100%;}
+td
+{
+ max-width: 0;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+td.column_d {width: 20%;}
+td.column_e {width: 30%;}
+</style>
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor"><i class="ti-email"></i> {{ title }} </h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('staff.dashboardstaff') }}"> {{ breadcrumb }} </a></li>
+                <li class="breadcrumb-item active"><a href="{{ url_for('staff.drafsuratstaff') }}"> {{ breadcrumb_active }} </a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <span>{{ message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-xlg-12 col-lg-12 col-md-12">                                    
+                            <div class="card-body">
+                                <div class="card-body">
+                                    <div class="card shadow-none">
+                                        <div class="inbox-center table-responsive">
+                                            <table id="myTable" class="table table-hover no-wrap table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tanggal</th>
+                                                        <th>Tujuan Surat</th>
+                                                        <th>Nomor Surat</th>
+                                                        <th>Hal</th>
+                                                        <th>Isi Ringkas</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for satu_suratkeluar in daftar_suratkeluar %}
+                                                    {% if  satu_suratkeluar["status"] == "draf" %}
+
+                                                    <tr>
+                                                        <td class="column_a">{{ satu_suratkeluar["tgl_disposisi"] }}</td>
+                                                        <td class="column_b">{{ satu_suratkeluar["tujuan_surat"] }}</td>
+                                                        <td class="column_c">{{ satu_suratkeluar["nomor_surat"] }}</td>
+                                                        <td class="column_d">{{ satu_suratkeluar["hal"] }}</td>
+                                                        <td class="column_e">{{ satu_suratkeluar["isi_ringkas"] }}</td>
+                                                        <td class="column_f">
+                                                            <a href="/staff/detaildrafsuratstaff/{{ satu_suratkeluar["id"] }}"><button type="button" class="btn waves-effect waves-light btn-themecolor">Detail</button></a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+
+{% include "layout/staff/footer.j2" %}

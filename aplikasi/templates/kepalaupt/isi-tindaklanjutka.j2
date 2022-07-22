@@ -1,0 +1,327 @@
+{% include "layout/kepalaupt/head.j2" %}
+{% include "layout/kepalaupt/header.j2" %}
+
+<style type="text/css">
+    .noBorder {
+        border: none !important;
+    }
+</style>
+
+<!-- ============================================================== -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+            <li role="separator" class="divider"></li>
+
+                <li> <a href="{{ url_for('kepalaupt.dashboardka') }}" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Dashboard </span> </a>
+                </li>
+
+                <li> <a href="{{ url_for('kepalaupt.suratmasukka') }}" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Surat Masuk 
+                {% for satu_suratmasuk in daftar_suratmasuk if sesi not in satu_suratmasuk["dibaca"] %}
+                <span class="label label-rounded label-danger pull-right">
+                {{loop.length}}
+                {% break %}
+                </span>
+                {% endfor %}
+                </span>
+                </a>                        
+                </li>
+
+                <li> <a  href="{{ url_for('kepalaupt.drafsuratka') }}" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Draf Surat 
+                {% for satu_suratkeluar in daftar_suratkeluar if ((satu_suratkeluar["status"] == "draf") and (sesi not in satu_suratkeluar["dibaca"])) %}
+                <span class="label label-rounded label-danger pull-right">
+                {{loop.length}}
+                {% break %}
+                </span>
+                {% endfor %}
+                </span>
+                </a>                        
+                </li>
+
+                <li> <a  href="{{ url_for('kepalaupt.suratkeluarka') }}" aria-expanded="false"><i class="mdi mdi-file-document-box"></i><span class="hide-menu">Surat Keluar</span></a>
+                </li>
+
+                <li> <a  href="{{ url_for('kepalaupt.tindaklanjut') }}" aria-expanded="false"><i class="mdi mdi-clipboard-flow"></i><span class="hide-menu">Tindak Lanjut</span></a>
+            </li>
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<div class="page-wrapper">
+
+    {% for satu_tindaklanjut in data_tindaklanjut %}
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor"><i class="ti-email"></i> {{ title }} </h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('kepalaupt.dashboardka') }}"> {{ breadcrumb }} </a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('kepalaupt.tindaklanjut') }}">
+                        {{ breadcrumb_nonactive }} </a></li>
+                <li class="breadcrumb-item"><a href="/kepalaupt/detailtindaklanjut/{{ satu_tindaklanjut["suratmasuk"] }}">
+                        {{ breadcrumb_active }} </a></li>
+                <li class="breadcrumb-item active"><a href="/kepalaupt/isi-tindaklanjutka/{{ satu_tindaklanjut["id"] }}">
+                        {{ breadcrumb_activated }} </a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="row">
+
+                        <div class="col-xlg-12 col-lg-12 col-md-12">
+                            <div class="card-body">
+                                <div class="card b-all shadow-none">
+                                    <div class="card-body">
+                                        <h3 class="card-title m-b-0">Detail Tugas</h3>
+                                    </div>
+                                    <div>
+                                        <hr class="m-t-0">
+                                    </div>
+                                    <div class="card-body">
+                                    <table class="table full-primary-table">
+                                        <tbody>
+                                            <tr>
+                                                <td class="noBorder" width="20%">Penugas Tindak Lanjut :</td>
+                                                <td class="noBorder" width="45%"><a id="inline-username"
+                                                        data-type="text" data-pk="1"
+                                                        data-placeholder="Required">{{ satu_tindaklanjut["penugas"].title() }}</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="noBorder">Tanggal Penugasan :</td>
+                                                <td class="noBorder">
+                                                    <a id="inline-firstname" data-type="text" data-pk="1"
+                                                        data-placement="right">{{ satu_tindaklanjut["tgl_tugas"] }}</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="noBorder">Detail Tugas :</td>
+                                                <td class="noBorder">
+                                                    <a id="inline-firstname" data-type="text" data-pk="1"
+                                                        data-placement="right" data-placeholder="Required"
+                                                        data-title="Enter your firstname">{{ satu_tindaklanjut["tugas"] }}</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="noBorder">Penanggung Jawab Tindak Lanjut :</td>
+                                                <td class="noBorder">
+                                                    <a id="inline-firstname" data-type="text" data-pk="1"
+                                                        data-placement="right" data-placeholder="Required"
+                                                        data-title="Enter your firstname">{{ satu_tindaklanjut["penanggungjawab"].title() }}</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="noBorder">Tenggat Waktu :</td>
+                                                <td class="noBorder">
+                                                    <a id="inline-firstname" data-type="text" data-pk="1"
+                                                        data-placement="right" data-placeholder="Required"
+                                                        data-title="Enter your firstname">{{ satu_tindaklanjut["tenggatwaktu"] }}</a>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    {% if (satu_tindaklanjut["check"] == "0") and (satu_tindaklanjut["data_pn"] == satu_tindaklanjut["penugas"]) %}
+                                        <a type="submit" class="btn btn-secondary m-t-20 float-left" href="/kepalaupt/isi-tindaklanjutka/edit/{{ satu_tindaklanjut["id"] }}"><i class="fa fa-share-square-o"></i> Ubah Tenggat Waktu</a>
+                                    {% endif %}
+                                    {% if ( (satu_tindaklanjut["check"] == "0") and (satu_tindaklanjut["data_followup"]|length >= 1) ) %}
+                                    <a type="submit" class="btn btn-info m-t-20 float-right"
+                                            href="/tindaklanjut/kirimka/{{ satu_tindaklanjut['id'] }}"><i
+                                                class="fa fa-check"></i> Selesai</a>
+                                    {% endif %}
+                                    </div>
+                                   
+                                    <div>
+                                        <hr class="m-t-0">
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="col-lg-12 col-xlg-12">
+                                                    <h3> Tindaklanjut Tugas </h3>
+
+                                                <div class="card-body">
+
+                                                    {% for followup in satu_tindaklanjut["data_followup"]|sort(attribute='tgl_followup', reverse = False) %}
+
+                                                    <div class="profiletimeline m-t-40">
+                                                    <small>{{ followup["penanggungjawab_tindaklanjut"]["nama_jabatan"].title() }}</small>
+                                                        <div class="sl-item">
+                                                            <div class="sl-left"> <img
+                                                                    src="{{ followup['penanggungjawab_tindaklanjut']['picture'] }}"
+                                                                    alt="user" class="img-circle"> </div>
+                                                            <div class="sl-right">
+                                                                <div>
+                                                                    <div class="float-sm-right">
+                                                                        <small> {{ followup["tgl_followup"] }} </small>
+                                                                    </div>
+                                                                    <a href="#" class="link">
+                                                                        <h4>{{ followup["penanggungjawab_tindaklanjut"]["nama"].title() }}
+                                                                        </h4>
+                                                                    </a>
+
+                                                                    <textarea class="form-control komentar-class"
+                                                                        readonly>{{ followup["isi_followup"]}}</textarea>
+
+                                                                    <div class="row">
+                                                                        {% for file_followup in followup['file_followup'] %}
+                                                                        <div class="col-md-2">
+                                                                            {% if ( (".jpg" in file_followup["url"]) or (".png" in file_followup["url"]) ) %}
+                                                                            <a href="{{ file_followup["url"] }}"> <img
+                                                                                    class="img-thumbnail img-responsive"
+                                                                                    alt="attachment"
+                                                                                    src="{{file_followup["url"]}}">
+                                                                                </a>
+
+                                                                            {% elif ( (".xlsx" in file_followup["url"]) )  %}
+                                                                            <a href="{{ file_followup["url"] }}"> <img
+                                                                                    class="img-thumbnail img-responsive"
+                                                                                    alt="attachment"
+                                                                                    src="{{ url_for('static', filename='images/big/excel.png') }}">
+                                                                                {{file_followup["name"]}} </a>
+
+                                                                            {% elif ( (".ppt" in file_followup["url"]) )  %}
+                                                                            <a href="{{ file_followup["url"] }}"> <img
+                                                                                    class="img-thumbnail img-responsive"
+                                                                                    alt="attachment"
+                                                                                    src="{{ url_for('static', filename='images/big/ppt.png') }}">
+                                                                                {{file_followup["name"]}} </a>
+
+                                                                            {% elif ( (".doc" in file_followup["url"]) or (".docx" in file_followup["url"]) )  %}
+                                                                            <a href="{{ file_followup["url"] }}"> <img
+                                                                                    class="img-thumbnail img-responsive"
+                                                                                    alt="attachment"
+                                                                                    src="{{ url_for('static', filename='images/big/word.png') }}">
+                                                                                {{file_followup["name"]}} </a>
+
+                                                                            {% elif ( (".pdf" in file_followup["url"]) )  %}
+                                                                            <a href="{{ file_followup["url"] }}"> <img
+                                                                                    class="img-thumbnail img-responsive"
+                                                                                    alt="attachment"
+                                                                                    src="{{ url_for('static', filename='images/big/pdf.png') }}">
+                                                                                {{file_followup["name"]}} </a>
+
+                                                                            {% elif ( (".txt" in file_followup["url"]) )  %}
+                                                                            <a href="{{ file_followup["url"] }}"> <img
+                                                                                    class="img-thumbnail img-responsive"
+                                                                                    alt="attachment"
+                                                                                    src="{{ url_for('static', filename='images/big/txt.png') }}">
+                                                                                {{ file_followup["name"] }} </a>
+
+                                                                            {% elif ( ("" in file_followup["name"]) )  %}
+                                                                            <a href="{{ file_followup["url"] }}"> 
+                                                                                 </a>
+
+                                                                            {% else %}
+                                                                            <a href="{{ file_followup["url"] }}"> <img
+                                                                                    class="img-thumbnail img-responsive"
+                                                                                    alt="attachment"
+                                                                                    src="{{ url_for('static', filename='images/big/unk.png') }}">
+                                                                                {{file_followup["name"]}} </a>
+
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        {% endfor %}
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+
+
+
+                                                    </div>
+                                                    {% endfor %}
+
+                                                    <a type="submit" class="btn btn-themecolor m-t-20"
+                                                        href="/kepalaupt/detailtindaklanjut/{{ satu_tindaklanjut["suratmasuk"] }}"><i
+                                                            class="fa fa-undo"></i> Kembali</a>
+
+                                                    {% if satu_tindaklanjut["check"] == "0" %}
+
+                                                    <a type="submit" class="btn btn-primary m-t-20 float-right"
+                                                        href="/kepalaupt/followup/{{ satu_tindaklanjut["id"] }}"><i
+                                                            class="fa fa-edit"></i> Proses</a>
+
+                                                    {% endif %}
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page Content -->
+        <!-- ============================================================== -->
+
+    </div>
+    {% endfor %}
+    {# {% endfor %} #}
+
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <script>
+        const txHeight = 16;
+        const tx = document.getElementsByTagName("textarea");
+        for (let i = 0; i < tx.length; i++) {
+            if (tx[i].value == '') {
+                tx[i].setAttribute("style", "height:" + txHeight + "px;overflow-y:hidden;" +
+                    "background: white;color: black;");
+            } else {
+                tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;" +
+                    "background: white;color: black;");
+            }
+
+            tx[i].addEventListener("input", OnInput, false);
+        }
+
+        function OnInput(e) {
+            this.style.height = "auto";
+            this.style.height = (this.scrollHeight) + "px";
+        }
+
+        $("textarea").trigger("input");
+    </script>
+    {% include "layout/kepalaupt/footer.j2" %}

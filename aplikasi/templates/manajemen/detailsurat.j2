@@ -1,0 +1,194 @@
+{% include "layout/manajemen/head.j2" %}
+{% include "layout/manajemen/header.j2" %}
+{% include "layout/manajemen/aside.j2" %}
+<!-- ============================================================== -->
+<!-- css tabel dan kolom komentar  -->
+<!-- ============================================================== -->
+<style type="text/css">
+    .noBorder {
+        border: none !important;
+    }
+    textarea.form-control.komentar-class
+    {  
+    width: 100%;
+    height: 100%;
+    border-color: Transparent;     
+    }
+</style>
+<!-- ============================================================== -->
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<div class="page-wrapper">
+    {% for satu_surat in data_surat %}
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor"><i class="ti-email"></i> {{ title }}</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                {# <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboardadmin') }}"> {{ breadcrumb }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('admin.suratmasuk') }}"> {{ breadcrumb_nonactive }}</a> #}
+                </li>
+                <li class="breadcrumb-item active"><a
+                        href='/manajemen/detailsurat/{{ satu_surat["id"] }}'>{{ breadcrumb_active }}</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Surat : {{ satu_surat["nomor"] }}</h4>
+                        <div>
+                            <hr class="m-t-0">
+                        </div>
+                        <table class="table full-primary-table">
+                            <tbody>
+                                <tr>
+                                    <td class="noBorder" width="20%">Nomor </td>
+                                    <td class="noBorder" width="45%"><a id="inline-username" data-type="text"
+                                            data-pk="1">{{ satu_surat["nomor"] }}</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Asal </td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1" data-placement="right"
+                                            data-placeholder="Required"
+                                            data-title="Enter your firstname">{{ satu_surat["asal"] }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Tujuan </td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1" data-placement="right"
+                                            data-placeholder="Required"
+                                            data-title="Enter your firstname">{{ satu_surat["tujuan"] }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Tanggal Surat</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1"
+                                            data-placement="right">{{ satu_surat["tgl"] }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Isi Ringkas</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1"
+                                            data-placement="right">{{ satu_surat["isi"] }}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            {% for data in satu_surat["dokumen"] %}
+                            <div class="col-md-2">
+                                {% if ( (".jpg" in data["url"]) or (".png" in data["url"]) ) %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{data["url"]}}"> </a>
+
+                                {% elif ( (".xlsx" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/excel.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% elif ( (".ppt" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/ppt.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% elif ( (".docx" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/word.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% elif ( (".pdf" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/pdf.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% elif ( (".txt" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/txt.png') }}"> {{ data["name"] }} 
+                                </a>
+
+                                {% elif ( (".json" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/json.png') }}"> {{ data["name"] }} 
+                                </a>
+
+                                {% else %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/unk.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+
+    </div>
+    {% endfor %}
+
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+<script>
+    const txHeight = 16;
+    const tx = document.getElementsByClassName("form-control komentar-class");
+    for (let i = 0; i < tx.length; i++) {
+        if (tx[i].value == '') {
+            tx[i].setAttribute("style", "height:" + txHeight + "px;overflow-y:hidden;" +
+                "background: white;color: black;");
+        } else {
+            tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;" +
+                "background: white;color: black;");
+        }
+
+        tx[i].addEventListener("input", OnInput, false);
+    }
+
+    function OnInput(e) {
+        this.style.height = "auto";
+        this.style.height = (this.scrollHeight) + "px";
+    }
+
+    $("textarea").trigger("input");
+</script>
+
+{% include "layout/manajemen/footer.j2" %}

@@ -1,0 +1,457 @@
+{% include "layout/staff/head.j2" %}
+{% include "layout/staff/header.j2" %}
+<script src="{{ url_for('static', filename='assets/staff/staff.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/staff/komen.js') }}"></script>
+
+<style type="text/css">
+    .noBorder {
+        border: none !important;
+    }
+    textarea.form-control.komentar-class
+    {  
+    width: 100%;
+    height: 100%;
+    border-color: Transparent;     
+    }
+</style>
+<!-- ============================================================== -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+            <li role="separator" class="divider"></li>
+
+                <li> <a href="{{ url_for('staff.dashboardstaff') }}" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Dashboard </a>
+                </li>
+
+                <li> <a  href="{{ url_for('staff.suratmasukstaff') }}" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Surat Masuk 
+                {% for satu_suratmasuk in daftar_suratmasuk if sesi not in satu_suratmasuk["dibaca"] %}
+                <span class="label label-rounded label-danger pull-right">
+                {{loop.length}}
+                {% break %}
+                </span>
+                {% endfor %}
+                </span>
+                </a>                        
+                </li>
+
+                <li> <a  href="{{ url_for('staff.drafsuratstaff') }}" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Draf Surat 
+                {% for satu_suratkeluar in daftar_suratkeluar if ((satu_suratkeluar["status"] == "draf") and (sesi not in satu_suratkeluar["dibaca"])) %}
+                <span class="label label-rounded label-danger pull-right">
+                {{loop.length}}
+                {% break %}
+                </span>
+                {% endfor %}
+                </span>
+                </a>                        
+                </li>
+
+                <li> <a  href="{{ url_for('staff.suratkeluarstaff') }}" aria-expanded="false"><i class="mdi mdi-file-document-box"></i><span class="hide-menu">Surat Keluar</span></a>
+                </li>
+
+                <li> <a  href="{{ url_for('staff.tindaklanjutstaff') }}" aria-expanded="false"><i class="mdi mdi-clipboard-flow"></i><span class="hide-menu">Tindak Lanjut</span></a>
+            </li>
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<div class="page-wrapper">
+    {% for satu_suratmasuk in data_suratmasuk %}
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor"><i class="ti-email"></i> {{ title }} </h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('staff.dashboardstaff') }}"> {{ breadcrumb }} </a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('staff.suratmasukstaff') }}"> {{ breadcrumb_nonactive }}
+                    </a></li>
+                <li class="breadcrumb-item active"><a href="/staff/detailsuratmasukstaff/{{ satu_suratmasuk["id"] }}">
+                        {{ breadcrumb_active }} </a></li>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Surat : {{ satu_suratmasuk["nomor_surat"] }}</h4>
+                        <div>
+                            <hr class="m-t-0">
+                        </div>
+                        <table class="table full-primary-table">
+                            <tbody>
+                                <tr>
+                                    <td class="noBorder" width="20%">Nomor Surat</td>
+                                    <td class="noBorder" width="45%"><a id="inline-username" data-type="text" data-pk="1"
+                                            data-placeholder="Required">{{ satu_suratmasuk["nomor_surat"] }}</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Tanggal Surat</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1" data-placement="right"
+                                            data-placeholder="Required"
+                                            data-title="Enter your firstname">{{ satu_suratmasuk["tgl_surat"] }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Asal Surat</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1" data-placement="right"
+                                            data-placeholder="Required"
+                                            data-title="Enter your firstname">{{ satu_suratmasuk["asal_surat"] }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Hal</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1" data-placement="right"
+                                            data-placeholder="Required"
+                                            data-title="Enter your firstname">{{ satu_suratmasuk["hal"] }}</a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="noBorder">Isi Ringkas</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1"
+                                            data-placement="right">{{ satu_suratmasuk["isi_ringkas"] }}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            {% for data in satu_suratmasuk["dokumen"] %}
+                            <div class="col-md-2">
+                                {% if ( (".jpg" in data["url"]) or (".png" in data["url"]) ) %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{data["url"]}}"></a>
+
+                                {% elif ( (".xlsx" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/excel.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% elif ( (".ppt" in data["url"]) or (".pptx" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/ppt.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% elif ( (".doc" in data["url"]) or (".docx" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/word.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% elif ( (".pdf" in data["url"]) )  %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/pdf.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% else %}
+                                <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                        src="{{ url_for('static', filename='images/big/unk.png') }}"> {{data["name"]}}
+                                </a>
+
+                                {% endif %} 
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                        <div>
+                            {% if satu_suratmasuk["status_tindaklanjut"] != "selesai" %}
+                            <a class="btn pull-right btn-info" style="margin: 5px"
+                                href="/staff/detailtindaklanjutstaff/{{ satu_suratmasuk["id"] }}"><i class="fa fa-tasks"></i> Tindak Lanjut </a>
+                            {% endif %}
+                            <button class="btn pull-right btn-secondary" data-toggle="modal" data-target="#myModal5"
+                                style="margin: 5px"><i class="fa fa-share-alt"></i> Disposisi </button>
+                            <div class="to-do-widget m-t-20">
+                                <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Disposisi</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close"> <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="education_fields"></div>
+
+                                                <div class="form-group">
+                                                    <label>Disposisi Ke</label>
+                                                    <select class="select-jabatan form-control custom-select"
+                                                        style="width: 100%; height:36px;">
+                                                        <option>Pilih</option>
+
+                                                        {% for jabatan in daftar_jabatan %}
+                                                        <option name="jabatan[]" value="{{ jabatan['id'] }}">
+                                                            {{ jabatan['nama'].title() }}</option>
+                                                        {% endfor %}
+
+                                                    </select>
+
+                                                    <button class="btn btn-success" type="button"
+                                                        onclick="education_fields();"><i
+                                                            class="fa fa-plus"></i></button>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-dismiss="modal">Batal</button>
+                                                <button id="konfirmasi-btn" type="button" class="btn btn-info"
+                                                    onclick="konfirmasi({{ satu_suratmasuk["id"] }})">Konfirmasi</button>
+                                                <button id="loading-btn" class="btn btn-primary" type="button"
+                                                    disabled="" hidden>
+                                                    <span class="spinner-border spinner-border-sm" role="status"
+                                                        aria-hidden="true"></span>
+                                                    Menyimpan...
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p>
+                            <div>
+                                <button class="btn pull-left btn-secondary" data-toggle="modal"
+                                    data-target="#tersampaikanke" style="margin: 5px"><i class="fa fa-users"></i> Tersampaikan ke </button>
+                                
+                                <div class="to-do-widget m-t-20">
+                                    <div class="modal fade" id="tersampaikanke" tabindex="-1" role="dialog"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Tersampaikan Ke: </h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close"> <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {% for x in satu_suratmasuk["disposisi"] %}
+                                                    {% set disposisi = x|string %}
+                                                        {% if disposisi is in satu_suratmasuk["dibaca"]%}
+                                                        {{ disposisi.title() }} <i class="mdi mdi-check-all" style="color:#1976d2"></i>
+
+                                                            {% if not loop.last %}
+                                                            <br>
+                                                            {% endif %}
+                                                        {% elif disposisi is not in satu_suratmasuk["dibaca"]%}
+                                                        {{ disposisi.title() }}
+                                                            {% if not loop.last %}
+                                                            <br>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                                
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <h4 class="card-title">Tambah Komentar</h4>
+                            <form novalidate action="{{ url_for('komenmasuk.komenmasuk_tambah') }}" method="POST"
+                                enctype="multipart/form-data">
+                                <textarea rows="5" id="komentar" type="text" name="isi_komenmasuk" class="form-control"
+                                    placeholder=""></textarea>
+                                <input id="id_suratmasuk" type="text" name="id_suratmasuk" class="form-control" hidden
+                                    value="{{satu_suratmasuk['id']}}">
+                                <button type="submit" class="btn pull-right btn-success green" style="margin: 5px;"
+                                    style="float: right;"><i class="fa fa-share"></i>Kirim</button>
+                            </form>
+                        </div>
+                    </div>
+                   
+                    <div class="card-body">
+                        <h4 class="card-title">Komentar</h4>
+                        <div>
+                            <hr class="m-t-0">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-xlg-12">
+                                {% set i = namespace(value=0) %}
+                                {% set id = "replyComment" %}
+                                {% for komentar in satu_suratmasuk["data_komentar"]|sort(attribute='tgl_komenmasuk', reverse = True) %}
+                                {% set concat = id ~ i.value|string %}
+                                <div class="card-body">
+
+                                    <div class="profiletimeline m-t-40">
+                                    <small>{{ komentar["penindak_komentar"]["nama_jabatan"].title() }}</small>
+                                        <div class="sl-item">
+                                            <div class="sl-left"> <img
+                                                    src="{{ komentar['penindak_komentar']['picture'] }}" alt="user"
+                                                    class="img-circle"> </div>
+                                            <div class="sl-right">
+                                                <div>
+                                                    <div class="float-sm-right">
+                                                        <small> {{ komentar["tgl_komenmasuk"] }} </small>
+                                                    </div>
+                                                    <a href="#" class="link">
+                                                        <h4>{{ komentar["penindak_komentar"]["nama"].title() }}
+                                                        </h4>
+                                                    </a>
+                                                    <textarea class="form-control komentar-class" 
+                                                                        readonly>{{ komentar["isi_komenmasuk"]}}</textarea>
+
+                                                    <!-- Reply -->
+                                                    <p>
+                                                        <a class="float-right btn btn-outline-primary ml-2"
+                                                            role="button" data-toggle="collapse" href="#{{ concat }}"
+                                                            aria-expanded="false" aria-controls="collapseExample"> <i
+                                                                class="fa fa-reply"></i>
+                                                            Balas</a>
+                                                            <br>
+                                                    </p>
+
+                                                    <div class="collapse" id={{ concat }}>
+                                                        <form id="replyform" novalidate
+                                                            action="{{ url_for('replymasuk.replymasuk_tambah') }}"
+                                                            method="POST" enctype="multipart/form-data">
+                                                            <textarea id="reply" type="text" name="isi_replymasuk"
+                                                                placeholder=""></textarea>
+                                                            <input id="suratmasuk" type="text" name="suratmasuk" hidden
+                                                                value="{{ komentar["suratmasuk"] }}">
+                                                            <input id="komenmasuk" type="text" name="komenmasuk" hidden
+                                                                value="{{ komentar["id"] }}">
+                                                            <button type="submit" class="btn btn-success green"><i
+                                                                    class="fa fa-share"></i>
+                                                                Kirim</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                {% for reply in satu_suratmasuk["data_reply"]|sort(attribute='tgl_replymasuk', reverse = True) %}
+                                                    {% set komen = reply["komenmasuk"]|int %}
+                                                    
+                                                    {% if komen == komentar["id"] %}
+                                                        
+                                                        <div class="card-inner">
+                                                            <small>{{ reply["penindak_komentar"]["nama_jabatan"].title() }}</small>
+
+                                                            <div class="sl-item">
+                                                                
+                                                                <div class="sl-left">
+                                                                    <img src="{{ reply['penindak_komentar']['picture'] }}"
+                                                                        alt="user" class="img-circle">
+                                                                </div>
+
+                                                                <div class="sl-right">
+                                                                    <div>
+                                                                        <div class="float-sm-right">
+                                                                            <small> {{ reply["tgl_replymasuk"] }} </small>
+                                                                        </div>
+                                                                        <a href="#" class="link">
+                                                                            <h4>{{ reply["penindak_komentar"]["nama"].title() }}
+                                                                            </h4>
+                                                                        </a>
+                                                                        <textarea class="form-control komentar-class" 
+                                                                        readonly>{{ reply["isi_replymasuk"]}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                </div>
+                                {% set i.value = i.value + 1 %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+
+    </div>
+    {% endfor %}
+
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+<script>
+            const txHeight = 16;
+            const tx = document.getElementsByClassName("form-control komentar-class");
+            for (let i = 0; i < tx.length; i++) {
+                if (tx[i].value == '') {
+                    tx[i].setAttribute("style", "height:" + txHeight + "px;overflow-y:hidden;" +
+                        "background: white;color: black;");
+                } else {
+                    tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;" +
+                        "background: white;color: black;");
+                }
+
+                tx[i].addEventListener("input", OnInput, false);
+            }
+
+            function OnInput(e) {
+                this.style.height = "auto";
+                this.style.height = (this.scrollHeight) + "px";
+            }
+
+            $("textarea").trigger("input");
+        </script>
+    {% include "layout/staff/footer.j2" %}

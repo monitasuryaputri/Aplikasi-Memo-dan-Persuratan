@@ -1,0 +1,156 @@
+{% include "layout/kepalaupt/head.j2" %}
+{% include "layout/kepalaupt/header.j2" %}
+{% include "layout/kepalaupt/aside.j2" %}
+<style>
+table {width: 100%;}
+td
+{
+ max-width: 0;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+td.column_d {width: 10%;}
+td.column_e {width: 10%;}
+td.column_f {width: 10%;}
+td.column_g {width: 10%;}
+</style>
+<div class="page-wrapper">
+        {% for satu_suratmasuk in data_suratmasuk %}
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor"><i class="ti-email"></i> {{ title }} </h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('kepalaupt.dashboardka') }}"> {{ breadcrumb }} </a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('kepalaupt.tindaklanjut') }}">
+                        {{ breadcrumb_nonactive }} </a></li>
+                <li class="breadcrumb-item active"><a href="/kepalaupt/detailtindaklanjut/{{ satu_suratmasuk["id"] }}">
+                        {{ breadcrumb_active }} </a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Tindak Lanjut Surat : {{ satu_suratmasuk["nomor_surat"] }}</h4>
+                        <div>
+                            <hr class="m-t-0">
+                        </div>
+                        
+                        <h5 class="card-subtitle">Daftar Tugas dan Penanggung Jawab </h5>
+                        <!-- ============================================================== -->
+                        <!-- To do list widgets -->
+                        <!-- ============================================================== -->
+                        <div class="to-do-widget m-t-20">
+                            <!-- modal for add task -->
+
+
+                            {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <span>{{ message }}</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="col-xlg-12 col-lg-12 col-md-12">
+                                            <div class="card shadow-none">
+                                                <div class="inbox-center table-responsive">
+                                                    <table id="" class="table table-hover no-wrap table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Penugas</th>
+                                                                <th>Tugas</th>
+                                                                <th>Penanggung Jawab</th>
+                                                                <th>Tenggat Waktu</th>
+                                                                <th>Histori</th>
+                                                                <th>Tindaklanjut</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for tindaklanjut in satu_suratmasuk["data_tindaklanjut"] %}
+                                                            <tr>
+
+                                                                <td class="column_a">{{ tindaklanjut["penugas_tindaklanjut"]["nama_jabatan"].title() }}
+                                                                </td>
+                                                                <td class="column_b">{{ tindaklanjut["tugas"] }}</td>
+
+                                                                <td class="column_c">{{ tindaklanjut["penanggungjawab"].title() }}</td>
+
+                                                                <td class="column_d">{{ tindaklanjut["tenggatwaktu"] }}</td>
+
+                                                                <td class="column_e"><a
+                                                                        href="/kepalaupt/historika/{{ tindaklanjut["id"] }}">
+                                                                        <button type="button"
+                                                                            class="btn waves-effect waves-light btn-themecolor">History</button></a>
+                                                                </td>
+                                                                <td class="column_f">
+                                                                    <a
+                                                                        href="/kepalaupt/isi-tindaklanjutka/{{ tindaklanjut["id"] }}">
+                                                                        <button type="button"
+                                                                            class="btn waves-effect waves-light btn-info">Detail</button></a>
+                                                                </td>
+                                                                {% if tindaklanjut["check"] == "1" %}
+                                                                <td class="column_g">
+                                                                    <span
+                                                                        class="label label-table label-success">Selesai</span>
+                                                                </td>
+                                                                {% elif tindaklanjut["check"] == "0" %}
+                                                                <td class="column_g">
+                                                                    <span
+                                                                        class="label label-table label-warning">Diproses</span>
+                                                                </td>
+                                                                {% endif %}
+                                                            </tr>
+                                                            {% endfor %}
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br>
+
+                        <a type="button" class="btn pull-right btn-themecolor" style="float: left;" style="margin: 5px;"
+                            href="{{ url_for('kepalaupt.tindaklanjut') }}">Kembali</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+    </div>
+            {% endfor %}
+
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    {% include "layout/kepalaupt/footer.j2" %}

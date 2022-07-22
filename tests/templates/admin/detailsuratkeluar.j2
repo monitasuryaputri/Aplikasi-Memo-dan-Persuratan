@@ -1,0 +1,428 @@
+{% include "layout/admin/head.j2" %}
+{% include "layout/admin/header.j2" %}
+{% include "layout/admin/aside.j2" %}
+<style type="text/css">
+    .noBorder {
+        border: none !important;
+    }
+    textarea.form-control.komentar-class
+    {  
+    width: 100%;
+    height: 100%;
+    border-color: Transparent;     
+    }
+</style>
+<!-- ============================================================== -->
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<div class="page-wrapper">
+    {% for satu_suratkeluar in data_suratkeluar %}
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor"><i class="ti-email"></i> {{ title }}</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboardadmin') }}"> {{ breadcrumb }}</a></li>
+                <li class="breadcrumb-item"> <a href="{{ url_for('admin.suratkeluar') }}">
+                        {{ breadcrumb_nonactive }}</a></li>
+                <li class="breadcrumb-item active"><a
+                        href="/admin/detailsuratkeluar/{{ satu_suratkeluar["id"] }}">{{ breadcrumb_active }}</a></li>
+            </ol>
+
+            </ol>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Surat : {{ satu_suratkeluar["nomor_surat"] }}</h4>
+                        <div>
+                            <hr class="m-t-0">
+                        </div>
+                        <table class="table full-primary-table">
+                            <tbody>
+                                <tr>
+                                    <td class="noBorder" width="20%">Nomor Surat</td>
+                                    <td class="noBorder" width="45%"><a id="inline-username" data-type="text"
+                                            data-pk="1"
+                                            data-placeholder="Required">{{ satu_suratkeluar["nomor_surat"] }}</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Tanggal Surat</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1" data-placement="right"
+                                            data-placeholder="Required"
+                                            data-title="Enter your firstname">{{ satu_suratkeluar["tgl_surat"] }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Tujuan Surat</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1" data-placement="right"
+                                            data-placeholder="Required"
+                                            data-title="Enter your firstname">{{ satu_suratkeluar["tujuan_surat"] }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Hal</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1" data-placement="right"
+                                            data-placeholder="Required"
+                                            data-title="Enter your firstname">{{ satu_suratkeluar["hal"] }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="noBorder">Isi Ringkas</td>
+                                    <td class="noBorder">
+                                        <a id="inline-firstname" data-type="text" data-pk="1"
+                                            data-placement="right">{{ satu_suratkeluar["isi_ringkas"] }}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            {% for data in satu_suratkeluar["dokumen"] %}
+                            {% if (data == satu_suratkeluar["dokumen"][-1]) %}
+                                {% if satu_suratkeluar["dokumen"][-1]["name"] != ""  %}
+                                    <div class="col-md-2">
+                                        {% if ( (".jpg" in data["url"]) or (".png" in data["url"]) ) %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{data["url"]}}"></a>
+
+                                        {% elif ( (".xlsx" in data["url"]) )  %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/excel.png') }}"> {{data["name"]}}
+                                        </a>
+
+                                        {% elif ( (".ppt" in data["url"]) )  %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/ppt.png') }}"> {{data["name"]}}
+                                        </a>
+
+                                        {% elif ( (".docx" in data["url"]) )  %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/word.png') }}">
+                                        </a>
+
+                                        {% elif ( (".pdf" in data["url"]) )  %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/pdf.png') }}"> {{data["name"]}}
+                                        </a>
+
+                                        {% elif ( (".txt" in data["url"]) )  %}
+                                                                    <a href="{{ data["url"] }}"> <img
+                                                                            class="img-thumbnail img-responsive"
+                                                                            alt="attachment"
+                                                                            src="{{ url_for('static', filename='images/big/txt.png') }}">
+                                                                        {{ data["name"] }} </a>
+
+                                        {% elif ( (".json" in data["url"]) )  %}
+                                                                    <a href="{{ data["url"] }}"> <img
+                                                                            class="img-thumbnail img-responsive"
+                                                                            alt="attachment"
+                                                                            src="{{ url_for('static', filename='images/big/json.png') }}">
+                                                                        {{ data["name"] }} </a>
+
+                                        {% else %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/unk.png') }}"> {{data["name"]}}
+                                        </a>
+
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% elif data == satu_suratkeluar["dokumen"][-2] %}
+                                {% if satu_suratkeluar["dokumen"][-2]["name"] != "" and satu_suratkeluar["dokumen"][-1]["name"] == "" %}
+                                    <div class="col-md-2">
+                                        {% if ( (".jpg" in data["url"]) or (".png" in data["url"]) ) %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{data["url"]}}"></a>
+
+                                        {% elif ( (".xlsx" in data["url"]) )  %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/excel.png') }}"> {{data["name"]}}
+                                        </a>
+
+                                        {% elif ( (".ppt" in data["url"]) )  %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/ppt.png') }}"> {{data["name"]}}
+                                        </a>
+
+                                        {% elif ( (".docx" in data["url"]) )  %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/word.png') }}">
+                                        </a>
+
+                                        {% elif ( (".pdf" in data["url"]) )  %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/pdf.png') }}"> {{data["name"]}}
+                                        </a>
+
+                                        {% elif ( (".txt" in data["url"]) )  %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/txt.png') }}"> {{ data["name"] }} 
+                                        </a>
+
+                                        {% elif ( (".json" in data["url"]) )  %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/json.png') }}"> {{ data["name"] }} 
+                                        </a>
+
+                                        {% else %}
+                                        <a href="{{ data["url"] }}"> <img class="img-thumbnail img-responsive" alt="attachment"
+                                                src="{{ url_for('static', filename='images/big/unk.png') }}"> {{data["name"]}}
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <br>
+                       
+                        <div class="ribbon-wrapper card col-lg-4 col-md-6 col-xlg-2 col-xs-12">
+                            <div class="ribbon ribbon-success">Disposisi</div>
+                            <p class="ribbon-content">
+                                {% for x in satu_suratkeluar["disposisi"] %}
+                                {% set disposisi = x|string %}
+                                {{ disposisi.title() }}
+                                {% if not loop.last %}
+                                <br>
+                                {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Komentar</h4>
+                        <div>
+                            <hr class="m-t-0">
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-12 col-xlg-12">
+                                {% for komentar in satu_suratkeluar["data_komentar"]|sort(attribute='tgl_komenkeluar', reverse = True) %}
+                                <div class="card-body">
+
+                                    <div class="profiletimeline m-t-40">
+                                    <small>{{ komentar["penindak_komentar"]["nama_jabatan"].title() }}</small>
+                                        <div class="sl-item">
+                                        
+                                            <div class="sl-left"> <img
+                                                    src="{{ komentar['penindak_komentar']['picture'] }}" alt="user"
+                                                    class="img-circle"> </div>
+                                                    
+                                            <div class="sl-right">
+                                            
+                                                <div>
+                                                
+                                                    <div class="float-sm-right">
+                                                        <small> {{ komentar["tgl_komenkeluar"] }} </small>
+                                                    </div>
+                                                    
+                                                    <a href="#" class="link">
+                                                         
+                                                        <h4>{{ komentar["penindak_komentar"]["nama"].title() }} 
+                                                        </h4>
+                                                    </a>
+                                                    
+                                                    <textarea class="form-control komentar-class" 
+                                                                        readonly>{{ komentar["isi_komenkeluar"]}}</textarea>
+                                                    <div class="row">
+                                                        {% for file_komentar in komentar['file_komenkeluar'] %}
+                                                        <div class="col-md-2">
+                                                            {% if ( (".jpg" in file_komentar["url"]) or (".png" in file_komentar["url"]) ) %}
+                                                            <a href="{{ file_komentar["url"] }}"> <img
+                                                                    class="img-thumbnail img-responsive"
+                                                                    alt="attachment"
+                                                                    src="{{file_komentar["url"]}}">
+                                                                </a>
+
+                                                            {% elif ( (".xlsx" in file_komentar["url"]) )  %}
+                                                            <a href="{{ file_komentar["url"] }}"> <img
+                                                                    class="img-thumbnail img-responsive"
+                                                                    alt="attachment"
+                                                                    src="{{ url_for('static', filename='images/big/excel.png') }}">
+                                                                {{file_komentar["name"]}} </a>
+
+                                                            {% elif ( (".ppt" in file_komentar["url"]) )  %}
+                                                            <a href="{{ file_komentar["url"] }}"> <img
+                                                                    class="img-thumbnail img-responsive"
+                                                                    alt="attachment"
+                                                                    src="{{ url_for('static', filename='images/big/ppt.png') }}">
+                                                                {{file_komentar["name"]}} </a>
+
+                                                            {% elif ( (".docx" in file_komentar["url"]) )  %}
+                                                            <a href="{{ file_komentar["url"] }}"> <img
+                                                                    class="img-thumbnail img-responsive"
+                                                                    alt="attachment"
+                                                                    src="{{ url_for('static', filename='images/big/word.png') }}">
+                                                                {{file_komentar["name"]}} </a>
+
+                                                            {% elif ( (".pdf" in file_komentar["url"]) )  %}
+                                                            <a href="{{ file_komentar["url"] }}"> <img
+                                                                    class="img-thumbnail img-responsive"
+                                                                    alt="attachment"
+                                                                    src="{{ url_for('static', filename='images/big/pdf.png') }}">
+                                                                {{file_komentar["name"]}} </a>
+
+                                                            {% elif ( (".txt" in file_komentar["url"]) )  %}
+                                                            <a href="{{ file_komentar["url"] }}"> <img
+                                                                    class="img-thumbnail img-responsive"
+                                                                    alt="attachment"
+                                                                    src="{{ url_for('static', filename='images/big/txt.png') }}">
+                                                                {{ file_komentar["name"] }} </a>
+
+                                                            {% elif ( (".json" in file_komentar["url"]) )  %}
+                                                            <a href="{{ file_komentar["url"] }}"> <img
+                                                                    class="img-thumbnail img-responsive"
+                                                                    alt="attachment"
+                                                                    src="{{ url_for('static', filename='images/big/json.png') }}">
+                                                                {{ file_komentar["name"] }} </a>
+
+                                                            {% elif ( ("" in file_komentar["name"]) )  %}
+                                                            <a href="{{ file_komentar["url"] }}"> 
+                                                                    </a>
+
+                                                            {% else %}
+                                                            <a href="{{ file_komentar["url"] }}"> <img
+                                                                    class="img-thumbnail img-responsive"
+                                                                    alt="attachment"
+                                                                    src="{{ url_for('static', filename='images/big/unk.png') }}">
+                                                                {{file_komentar["name"]}} </a>
+
+                                                            {% endif %}
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                    
+                                                    <br>
+                                                </div>
+                                                {% for reply in satu_suratkeluar["data_reply"]|sort(attribute='tgl_replykeluar', reverse = True) %}
+                                                {% set komen = reply["komenkeluar"]|int %}
+
+                                                {% if komen == komentar["id"] %}
+
+                                                <div class="card-inner">
+                                                    <div class="sl-item">
+
+                                                        <div class="sl-left">
+                                                            <img src="{{ reply['penindak_komentar']['picture'] }}"
+                                                                alt="user" class="img-circle">
+                                                        </div>
+
+                                                        <div class="sl-right">
+                                                            <div>
+                                                                <div class="float-sm-right">
+                                                                    <small> {{ reply["tgl_replykeluar"] }} </small>
+                                                                </div>
+                                                                <a href="#" class="link">
+                                                                    <h4>{{ reply["penindak_komentar"]["nama_jabatan"].title() }}
+                                                                    </h4>
+                                                                </a>
+                                                                <textarea class="form-control komentar-class" 
+                                                                        readonly>{{ reply["isi_replykeluar"]}}</textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div>
+                            <hr class="m-t-0">
+                        </div>
+
+                        <h5><i class="icon-people"></i> Kolaborasi :
+                            {% for x in satu_suratkeluar["disposisi"] %}
+                            {% set disposisi = x|string %}
+                            {{ disposisi.title() }}
+                            {{ "," if not loop.last else "" }}
+
+                            {% endfor %}
+                        </h5>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->
+
+</div>
+{% endfor %}
+
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+<script>
+            const txHeight = 16;
+            const tx = document.getElementsByClassName("form-control komentar-class");
+            for (let i = 0; i < tx.length; i++) {
+                if (tx[i].value == '') {
+                    tx[i].setAttribute("style", "height:" + txHeight + "px;overflow-y:hidden;" +
+                        "background: white;color: black;");
+                } else {
+                    tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;" +
+                        "background: white;color: black;");
+                }
+
+                tx[i].addEventListener("input", OnInput, false);
+            }
+
+            function OnInput(e) {
+                this.style.height = "auto";
+                this.style.height = (this.scrollHeight) + "px";
+            }
+
+            $("textarea").trigger("input");
+        </script>
+{% include "layout/admin/footer.j2" %}
+<!-- end extends halaman content -->

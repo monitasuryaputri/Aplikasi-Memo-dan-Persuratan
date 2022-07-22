@@ -1,0 +1,147 @@
+<footer class="footer">
+  © 2019 Admin Press Admin by themedesigner.in
+</footer>
+<!-- ============================================================== -->
+<!-- End footer -->
+<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Page wrapper  -->
+<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+
+
+<script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="{{ url_for('static', filename='plugins/bootstrap/js/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="{{ url_for('static', filename='js/jquery.slimscroll.js') }}"></script>
+<!--Wave Effects -->
+<script src="{{ url_for('static', filename='js/waves.js') }}"></script>
+<!--Menu sidebar -->
+<script src="{{ url_for('static', filename='js/sidebarmenu.js') }}"></script>
+<!--stickey kit -->
+<script src="{{ url_for('static', filename='plugins/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
+<!--Custom JavaScript -->
+<script src="{{ url_for('static', filename='js/custom.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/html5-editor/wysihtml5-0.3.0.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/html5-editor/bootstrap-wysihtml5.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/dropzone-master/dist/dropzone.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/bootstrap-table/dist/bootstrap-table.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/bootstrap-table/dist/bootstrap-table.ints.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/toast-master/js/jquery.toast.js') }}"></script>
+<script src="{{ url_for('static', filename='js/toastr.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jasny-bootstrap.js') }}"></script>
+
+<script>
+  $(document).ready(function() {
+
+  $('.textarea_editor').wysihtml5();
+
+  });
+</script>
+<!-- This is data table -->
+<script src="{{ url_for('static', filename='plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+  $(document).ready(function () {
+  $('#myTable').DataTable();
+  $(document).ready(function () {
+  var table = $('#example').DataTable({
+  "columnDefs": [{
+  "visible": false,
+  "targets": 2
+  }],
+  "order": [
+  [2, 'asc']
+  ],
+  "displayLength": 25,
+  "drawCallback": function (settings) {
+  var api = this.api();
+  var rows = api.rows({
+  page: 'current'
+  }).nodes();
+  var last = null;
+  api.column(2, {
+  page: 'current'
+  }).data().each(function (group, i) {
+  if (last !== group) {
+  $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+  last = group;
+  }
+  });
+  }
+  });
+
+  });
+  });
+
+</script>
+
+
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+<!--sparkline JavaScript -->
+<script src="{{ url_for('static', filename='plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+<!--morris JavaScript -->
+<script src="{{ url_for('static', filename='plugins/raphael/raphael-min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/morrisjs/morris.min.js') }}"></script>
+<!-- Chart JS -->
+<script src="{{ url_for('static', filename='js/dashboard1.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard4.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/Chart.js/Chart.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/Chart.js/chartjs.init.js') }}"></script>
+
+<script src="{{ url_for('static', filename='plugins/dff/dff.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='plugins/multiselect/js/jquery.multi-select.js') }}"></script>
+
+<!-- ============================================================== -->
+<!-- Style switcher -->
+<!-- ============================================================== -->
+<script src="{{ url_for('static', filename='plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
+<script>
+  $(document).ready(function () {
+  $(".dataTables_filter").removeAttr("top");
+  });
+</script>
+
+<!-- ============================================================== -->
+<!-- Tab -->
+<!-- ============================================================== -->
+<script>
+  function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+</script>
+<script>
+  // Get the element with id="defaultOpen" and click on it
+  // document.getElementById("defaultOpen").click();
+</script>
+<script>
+  jQuery(document).ready(function ($) {
+  $(".clickable-row").click(function () {
+  window.location = $(this).data("href");
+  });
+  });
+</script>
+</body>
+
+</html>

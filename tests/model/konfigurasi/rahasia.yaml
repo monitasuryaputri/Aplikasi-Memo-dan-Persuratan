@@ -1,0 +1,11 @@
+SECRET_KEY          : 'random key'
+GOOGLE_OAUTH_NAME   : 'google'
+CLIENT_ID           : '124477505522-l340s2qtf884ssmng91dmrdbmknefb08.apps.googleusercontent.com'
+CLIENT_SECRET       : 'qDducqqW4400idPMEE-2fc8U'
+ACCESS_TOKEN_URL    : 'https://accounts.google.com/o/oauth2/token'
+ACCESS_TOKEN_PARAMS : ''
+AUTHORIZE_URL       : 'https://accounts.google.com/o/oauth2/auth'
+AUTHORIZE_PARAMS    : ''
+API_BASE_URL        : 'https://www.googleapis.com/oauth2/v1/'
+CLIENT_KWARGS       : {'scope' : 'openid profile email'}
+JWKS_URI            : 'https://www.googleapis.com/oauth2/v3/certs'

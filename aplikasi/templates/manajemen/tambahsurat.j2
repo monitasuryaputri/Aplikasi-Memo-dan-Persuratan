@@ -1,0 +1,90 @@
+{% include "layout/manajemen/head.j2" %}
+{% include "layout/manajemen/header.j2" %}
+{% include "layout/manajemen/aside.j2" %}
+
+<div class="page-wrapper">
+             <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor"><i class="ti-email"></i> {{ title }}</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    
+                </div>
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->  
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Tambah Surat</h4>
+                                    <form class="m-t-10" id="formsurat" enctype="multipart/form-data" novalidate action="{{ url_for('surat.surat_tambah') }}"
+                                    method="POST">
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Nomor Surat <span class="text-danger">*</span></label>
+                                            <div class="col-10">
+                                                <input type="textarea" name="nomor" class="form-control" placeholder="Nomor Surat">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Asal Surat<span class="text-danger">*</span></label>
+                                            <div class="col-10">
+                                                <input type="textarea" name="asal" class="form-control" placeholder="Asal Surat">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Tujuan Surat<span class="text-danger">*</span></label>
+                                            <div class="col-10">
+                                                <input type="textarea" name="tujuan" class="form-control" placeholder="Tujuan Surat">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Isi Ringkas <span class="text-danger">*</span></label>
+                                            <div class="col-10">
+                                                <textarea type="text" name="isi" class="form-control" required placeholder="Isi Ringkas"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Unggah Dokumen <span class="text-danger">*</span></label>
+                                            <div class="col-10">
+                                                <input type="file" name="dokumen[]" class="form-control" required multiple> 
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="text-xs-right">
+                                            <input type="submit" class="btn btn-info m-t-20 float-right" name="btnSimpan"
+                                                value="Simpan">
+                                            <button type="reset" class="btn btn-danger">Cancel</button>
+                                        </div>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================== -->
+                <!-- End Page Content -->
+                <!-- ============================================================== -->
+               
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+{% include "layout/manajemen/footer.j2" %}

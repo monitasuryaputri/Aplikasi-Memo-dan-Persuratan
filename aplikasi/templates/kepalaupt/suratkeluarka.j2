@@ -1,0 +1,164 @@
+{% include "layout/kepalaupt/head.j2" %}
+{% include "layout/kepalaupt/header.j2" %}
+<style>
+table {width: 100%;}
+td
+{
+ max-width: 0;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+td.column_d {width: 20%;}
+td.column_e {width: 30%;}
+#myTable span{
+  display:none;
+}
+</style>
+<!-- ============================================================== -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+            <li role="separator" class="divider"></li>
+
+                <li> <a href="{{ url_for('kepalaupt.dashboardka') }}" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Dashboard </span> </a>
+                </li>
+
+                <li> <a href="{{ url_for('kepalaupt.suratmasukka') }}" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Surat Masuk 
+                {% for satu_suratmasuk in daftar_suratmasuk if sesi not in satu_suratmasuk["dibaca"] %}
+                <span class="label label-rounded label-danger pull-right">
+                {{loop.length}}
+                {% break %}
+                </span>
+                {% endfor %}
+                </span>
+                </a>                        
+                </li>
+
+                <li> <a  href="{{ url_for('kepalaupt.drafsuratka') }}" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Draf Surat 
+                {% for satu_suratkeluar in daftar_suratkeluar if ((satu_suratkeluar["status"] == "draf") and (sesi not in satu_suratkeluar["dibaca"])) %}
+                <span class="label label-rounded label-danger pull-right">
+                {{loop.length}}
+                {% break %}
+                </span>
+                {% endfor %}
+                </span>
+                </a>                        
+                </li>
+
+                <li> <a  href="{{ url_for('kepalaupt.suratkeluarka') }}" aria-expanded="false"><i class="mdi mdi-file-document-box"></i><span class="hide-menu">Surat Keluar</span></a>
+                </li>
+
+                <li> <a  href="{{ url_for('kepalaupt.tindaklanjut') }}" aria-expanded="false"><i class="mdi mdi-clipboard-flow"></i><span class="hide-menu">Tindak Lanjut</span></a>
+            </li>
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor"><i class="ti-email"></i> {{ title }} </h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('kepalaupt.dashboardka') }}"> {{ breadcrumb }} </a></li>
+                <li class="breadcrumb-item active"><a href="{{ url_for('kepalaupt.suratkeluarka') }}"> {{ breadcrumb_active }} </a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                              <span>{{ message }}</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-xlg-12 col-lg-12 col-md-12">                                    
+                                    <div class="card-body">
+                                        <div class="card-body">
+                                            <div class="card shadow-none">
+                                                <div class="inbox-center table-responsive">
+                                                    <table id="myTable" 
+                                                           class="table table-hover no-wrap table-striped table-bordered"
+                                                           data-order='[[0, "desc"]]'>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Tanggal</th>
+                                                                <th>Tujuan Surat</th>
+                                                                <th>Nomor Surat</th>
+                                                                <th>Hal</th>
+                                                                <th>Isi Ringkas</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for satu_suratkeluar in daftar_suratkeluar %}
+                                                            {% if  satu_suratkeluar["status"] == "submit" %}
+
+                                                            <tr>
+                                                                <td class="column_a"><span>{{ satu_suratkeluar["tanggal_surat"].replace("/","") }}</span>{{ satu_suratkeluar["tanggal"] }}</td>
+                                                                <td class="column_b">{{ satu_suratkeluar["tujuan_surat"] }}</td>
+                                                                <td class="column_c">{{ satu_suratkeluar["nomor_surat"] }}</td>
+                                                                <td class="column_d">{{ satu_suratkeluar["hal"] }}</td>
+                                                                <td class="column_e">{{ satu_suratkeluar["isi_ringkas"] }}</td>
+                                                                <td class="column_f">
+                                                                    <a href="/kepalaupt/detailsuratkeluar/{{ satu_suratkeluar["id"] }}"><button type="button" class="btn waves-effect waves-light btn-themecolor">Detail</button></a>
+                                                                </td>
+                                                            </tr>
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+    
+{% include "layout/kepalaupt/footer.j2" %}
+<!-- end extends halaman content -->

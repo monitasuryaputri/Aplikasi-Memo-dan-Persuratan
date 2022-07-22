@@ -1,0 +1,110 @@
+{% include "layout/admin/head.j2" %}
+{% include "layout/admin/header.j2" %}
+{% include "layout/admin/aside.j2" %}
+<script src="{{ url_for('static', filename='assets/admin/disposisi.js') }}"></script>
+
+<div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor"><i class="ti-email"></i> {{ title }}</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboardadmin') }}"> {{ breadcrumb }}</a></li>
+                        <li class="breadcrumb-item"> <a href="{{ url_for('admin.drafsurat') }}"> {{ breadcrumb_nonactive }}</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ url_for('admin.tambahsuratkeluar') }}">{{ breadcrumb_active }}</a></li>
+
+                    </ol>
+                </div>
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->  
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Tambah Surat</h4>
+                                    <form class="m-t-10" novalidate action="{{ url_for('suratkeluar.suratkeluar_tambah') }}"
+                                    method="POST" enctype="multipart/form-data" >
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Tanggal<span class="text-danger">*</span></label>
+                                            <div class="col-10">
+                                                <input type="date" name="tgl_surat" class="form-control" placeholder="MM/DD/YYYY" data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Tujuan Surat <span class="text-danger">*</span></label>
+                                            <div class="col-10">
+                                                <input type="textarea" name="tujuan_surat" class="form-control" placeholder="Tujuan Surat">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Nomor Surat <span class="text-danger">*</span></label>
+                                            <div class="col-10">
+                                                <input type="textarea" name="nomor_surat" class="form-control" placeholder="Nomor Surat">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Hal <span class="text-danger">*</span></label>
+                                            <div class="col-10">
+                                                <input type="textarea" name="hal" class="form-control" placeholder="Perihal">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Isi Ringkas <span class="text-danger">*</span></label>
+                                            <div class="col-10">
+                                                <textarea type="text" name="isi_ringkas" class="form-control" required placeholder="Isi Ringkas"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Unggah Dokumen <span class="text-danger">*</span></label>
+                                            <div class="col-10">
+                                                <input type="file" name="dokumen" class="form-control" required multiple> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-t-40 row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Disposisi <span class="text-danger">*</span></label>
+                                            <div class="col-10" id="education_fields">
+                                                <select name="disposisi" class="select-jabatan form-control custom-select" style="width: 100%; height:36px;">
+                                                        <option>Pilih</option>
+
+                                                        {% for jabatan in daftar_jabatan %}
+                                                            <option name="jabatan[]" value="{{ jabatan['id'] }}">{{ jabatan['nama'].title() }}</option>
+                                                        {% endfor %}
+                                                       
+                                                    </select>
+                                                    <div class="m-t-5">
+                                                    <button class="btn btn-info" type="button" onclick="education_fields();"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-xs-right">
+                                            <input type="submit" class="btn btn-info m-t-20 float-right" name="btnSimpan"
+                                            value="Simpan">
+                                            <button type="reset" class="btn btn-danger">Cancel</button>
+                                        </div>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                 </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+{% include "layout/admin/footer.j2" %}

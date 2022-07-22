@@ -1,0 +1,66 @@
+<!-- extends halaman content -->
+{% extends "layout/staff/content.j2" %}
+
+{% block main %}
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card" style="margin: 20px 90px 20px;">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ url_for('static', filename='images/suratmasuk.png') }}" class="img-fluid" width="90" >
+                            <p class="card-text"></p>
+                            <a href="/staff/suratmasukstaff" class="btn btn-themecolor">SURAT MASUK</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card" style="margin: 20px 90px 20px;">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ url_for('static', filename='images/tindaklanjut.png') }}" class="img-fluid" width="90" >
+                            <p class="card-text"></p>
+                            <a href="/staff/tindaklanjutstaff" class="btn btn-themecolor">TINDAK LANJUT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-sm-6">
+                <div class="card" style="margin: 20px 90px 20px;">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ url_for('static', filename='images/draf.png') }}" class="img-fluid" width="90" >
+                            <p class="card-text"></p>
+                            <a href="/staff/drafsuratstaff" class="btn btn-themecolor">DRAF SURAT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card" style="margin: 20px 90px 20px;">
+                    <div class="card-body">
+                    <div class="text-center">
+                        <img src="{{ url_for('static', filename='images/suratkeluar.png') }}" class="img-fluid" width="90" >
+                        <p class="card-text"></p>
+                        <a href="/staff/suratkeluarstaff" class="btn btn-themecolor">SURAT KELUAR</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+{% endblock %}
+<!-- end extends halaman content -->

@@ -1,0 +1,32 @@
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                    <br>
+                    <li role="separator" class="divider"></li>
+
+                        <li> <a href="{{ url_for('admin.dashboardadmin') }}" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Dashboard </span> </a>
+                        </li>
+
+                        <li> <a href="{{ url_for('admin.suratmasuk') }}" aria-expanded="false"><i class="mdi mdi-gmail"></i><span class="hide-menu">Surat Masuk </span> </a>
+                        </li>
+
+                        <li> <a href="{{ url_for('admin.drafsurat') }}" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Draf Surat</span></a>
+                        </li>
+
+                        <li> <a href="{{ url_for('admin.suratkeluar') }}" aria-expanded="false"><i class="mdi mdi-file-document-box"></i><span class="hide-menu">Surat Keluar</span></a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->

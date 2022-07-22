@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/unsyiah.png') }}">
+    <title>UPT Laboratorium Terpadu Unsyiah</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static', filename='plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='plugins/bootstrap-table/dist/bootstrap-table.min.css') }}" rel="stylesheet" type="text/css" />
+	<!-- morris CSS -->
+    <link href="{{ url_for('static', filename='plugins/morrisjs/morris.css') }}" rel="stylesheet">
+	<!-- wysihtml5 CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/html5-editor/bootstrap-wysihtml5.css') }}" />
+    <!-- Dropzone css -->
+    <link href="{{ url_for('static', filename='plugins/dropzone-master/dist/dropzone.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Custom CSS -->
+    <!-- toast CSS -->
+    <link href="{{ url_for('static', filename='plugins/toast-master/css/jquery.toast.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="{{ url_for('static', filename='css/colors/megna.css') }}" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+    <script src="{{ url_for('static', filename='assets/main.js') }}"></script>
+
+   <style>
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+            th:empty {
+                border: 0;
+            }
+    </style>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var col, el;
+
+            $("input[type=radio]").click(function () {
+                el = $(this);
+                col = el.data("col");
+                $("input[data-col=" + col + "]").prop("checked", false);
+                el.prop("checked", true);
+            });
+        });
+    </script>
+</head>

@@ -1,0 +1,125 @@
+{% include "layout/superadmin/head.j2" %}
+{% include "layout/superadmin/header.j2" %}
+{% include "layout/superadmin/aside.j2" %}
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor">{{ judul }}</h3>
+        </div>
+
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <span>{{ message }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="card">
+
+            <div class="card-body">
+                <h3 class="card-title">Daftar Petugas</h3>
+                <div>
+                    <hr class="m-t-0">
+                </div>
+                <div class="table-responsive m-t-40">
+                    <div class="button-box">
+                        <a href="{{ url_for('superadmin.superadmin_admin_tambah') }}"> <button type="button"
+                                class="btn waves-effect waves-light btn-rounded btn-themecolor"><i
+                                    class="fa fa-plus"></i> Admin</button> </a>
+                        <a href="{{ url_for('superadmin.superadmin_kepalaupt_tambah') }}"> <button type="button"
+                                class="btn waves-effect waves-light btn-rounded btn-themecolor"><i
+                                    class="fa fa-plus"></i> Kepala UPT</button> </a>
+                        <a href="{{ url_for('superadmin.superadmin_staff_tambah') }}"> <button type="button"
+                                class="btn waves-effect waves-light btn-rounded btn-themecolor"><i
+                                    class="fa fa-plus"></i> Staff</button> </a>
+                    </div>
+                    <table id="myTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>No HP</th>
+                                <th>Email</th>
+                                <th>Jabatan</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            {% for satu_admin in daftar_admin %}
+
+                            <tr>
+
+                                <td>{{ satu_admin["nama"] }}</td>
+                                <td>{{ satu_admin["no_hp"] }}</td>
+                                <td>{{ satu_admin["email"] }}</td>
+                                <td>{{ satu_admin["jabatan"].title() }}</td>
+                                <td>
+                                    <a class="btn btn-success" href="/superadmin/admin/ubah/{{ satu_admin["id"] }}">Ubah</a>
+                                    <a class="btn btn-danger" href="/admin/hapus/{{ satu_admin["id"] }}">Hapus</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% for satu_kepalaupt in daftar_kepalaupt %}
+
+                            <tr>
+
+                                <td>{{ satu_kepalaupt["nama"] }}</td>
+                                <td>{{ satu_kepalaupt["no_hp"] }}</td>
+                                <td>{{ satu_kepalaupt["email"] }}</td>
+                                <td>{{ satu_kepalaupt["jabatan"].title() }}</td>
+
+
+                                <td>
+                                    <a class="btn btn-success" href="/superadmin/kepalaupt/ubah/{{ satu_kepalaupt["id"] }}">Ubah</a>
+                                    <a class="btn btn-danger" href="/kepalaupt/hapus/{{ satu_kepalaupt["id"] }}">Hapus</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% for satu_staff in daftar_staff %}
+
+                            <tr>
+
+                                <td>{{ satu_staff["nama"] }}</td>
+                                <td>{{ satu_staff["no_hp"] }}</td>
+                                <td>{{ satu_staff["email"] }}</td>
+                                <td>{{ satu_staff["jabatan"].title() }}</td>
+
+                                <td>
+                                    <a class="btn btn-success" href="/superadmin/staff/ubah/{{ satu_staff["id"] }}">Ubah</a>
+                                    <a class="btn btn-danger" href="/staff/hapus/{{ satu_staff["id"] }}">Hapus</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    {% include "layout/superadmin/footer.j2" %}
